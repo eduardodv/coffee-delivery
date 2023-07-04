@@ -1,7 +1,7 @@
 export const coffees = [
   {
     id: 0,
-    src_image: './src/assets/products/expresso-tradicional.png',
+    src_image: '/images/products/expresso-tradicional.png',
     title: 'Expresso Tradicional',
     description: 'O tradicional café feito com água quente e grãos moídos',
     price: 3.9,
@@ -9,7 +9,7 @@ export const coffees = [
   },
   {
     id: 1,
-    src_image: './src/assets/products/expresso-americano.png',
+    src_image: '/images/products/expresso-americano.png',
     title: 'Expresso Americano',
     description: 'Expresso diluído, menos intenso que o tradicional',
     price: 4.99,
@@ -17,7 +17,7 @@ export const coffees = [
   },
   {
     id: 2,
-    src_image: './src/assets/products/expresso-cremoso.png',
+    src_image: '/images/products/expresso-cremoso.png',
     title: 'Expresso Cremoso',
     description: 'Café expresso tradicional com espuma cremosa',
     price: 8.5,
@@ -25,7 +25,7 @@ export const coffees = [
   },
   {
     id: 3,
-    src_image: './src/assets/products/expresso-gelado.png',
+    src_image: '/images/products/expresso-gelado.png',
     title: 'Expresso Gelado',
     description: 'Bebida preparada com café expresso e cubos de gelo',
     price: 9.9,
@@ -33,7 +33,7 @@ export const coffees = [
   },
   {
     id: 4,
-    src_image: './src/assets/products/cafe-com-leite.png',
+    src_image: '/images/products/cafe-com-leite.png',
     title: 'Café com Leite',
     description: 'Meio a meio de expresso tradicional com leite vaporizado',
     price: 5.7,
@@ -41,7 +41,7 @@ export const coffees = [
   },
   {
     id: 5,
-    src_image: './src/assets/products/latte.png',
+    src_image: '/images/products/latte.png',
     title: 'Latte',
     description:
       'Uma dose de café expresso com o dobro de leite e espuma cremosa',
@@ -50,7 +50,7 @@ export const coffees = [
   },
   {
     id: 6,
-    src_image: './src/assets/products/capuccino.png',
+    src_image: '/images/products/capuccino.png',
     title: 'Capuccino',
     description:
       'Bebida com canela feita de doses iguais de café, leite e espuma',
@@ -59,7 +59,7 @@ export const coffees = [
   },
   {
     id: 7,
-    src_image: './src/assets/products/macchiato.png',
+    src_image: '/images/products/macchiato.png',
     title: 'Macchiato',
     description:
       'Café expresso misturado com um pouco de leite quente e espuma',
@@ -68,7 +68,7 @@ export const coffees = [
   },
   {
     id: 8,
-    src_image: './src/assets/products/mocaccino.png',
+    src_image: '/images/products/mocaccino.png',
     title: 'Mocaccino',
     description: 'Café expresso com calda de chocolate, pouco leite e espuma',
     price: 14.9,
@@ -76,7 +76,7 @@ export const coffees = [
   },
   {
     id: 9,
-    src_image: './src/assets/products/chocolate-quente.png',
+    src_image: '/images/products/chocolate-quente.png',
     title: 'Chocolate Quente',
     description: 'Bebida feita com chocolate dissolvido no leite quente e café',
     price: 7.8,
@@ -84,7 +84,7 @@ export const coffees = [
   },
   {
     id: 10,
-    src_image: './src/assets/products/cubano.png',
+    src_image: '/images/products/cubano.png',
     title: 'Cubano',
     description:
       'Drink gelado de café expresso com rum, creme de leite e hortelã',
@@ -93,7 +93,7 @@ export const coffees = [
   },
   {
     id: 11,
-    src_image: './src/assets/products/havaiano.png',
+    src_image: '/images/products/havaiano.png',
     title: 'Havaiano',
     description: 'Bebida adocicada preparada com café e leite de coco',
     price: 19.5,
@@ -101,7 +101,7 @@ export const coffees = [
   },
   {
     id: 12,
-    src_image: './src/assets/products/arabe.png',
+    src_image: '/images/products/arabe.png',
     title: 'Árabe',
     description: 'Bebida preparada com grãos de café árabe e especiarias',
     price: 17.0,
@@ -109,7 +109,7 @@ export const coffees = [
   },
   {
     id: 13,
-    src_image: './src/assets/products/irlandes.png',
+    src_image: '/images/products/irlandes.png',
     title: 'Irlandês',
     description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
     price: 22.0,
