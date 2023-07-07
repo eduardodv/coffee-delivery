@@ -44,14 +44,21 @@ import { formatMoney } from '../../utils/formatMoeney'
 import { CartItemContext } from '../../contexts/CartItemContext'
 
 const formCartValidationSchema = zod.object({
-  cep: zod.string().min(1, 'Informe o CEP.').length(8, 'CEP inváldio!'),
+  cep: zod.string().min(1, 'Informe o CEP.').length(9, 'CEP inváldio!'),
   street: zod.string().min(1, 'Informe a Rua.'),
   number: zod.string().min(1, 'Informe o Número.'),
   complement: zod.string().optional(),
   district: zod.string().min(1, 'Informe o Bairro.'),
   city: zod.string().min(1, 'Informe a Cidade.'),
-  uf: zod.string().min(1, 'Informe o UF.'),
-  paymentMethod: zod.string().nonempty('Selecione um método de pagamento.'),
+  uf: zod.string().min(2, 'Informe o UF.'),
+  paymentMethod: zod.enum(['Cartão de Crédito', 'Cartão de Débito', 'Dinheiro'], {
+    errorMap: (issue) => {
+      if (issue.code == 'invalid_enum_value') {
+        return { message: 'Selecione um método de pagamento.' };
+      }
+      return { message: 'Selecione um método de pagamento.' };
+    },
+  })
 })
 
 // interface FormCartData {
@@ -73,7 +80,7 @@ export function Checkout() {
       district: '',
       city: '',
       uf: '',
-      paymentMethod: '',
+      paymentMethod: undefined
     },
   })
 
@@ -132,7 +139,9 @@ export function Checkout() {
                     type="text"
                     placeholder="CEP"
                     {...register('cep')}
-                    hasError={!!formState?.errors?.cep}
+                    mask="99999-999"
+                    maskPlaceholder=""
+                    $hasError={!!formState?.errors?.cep}
                   />
                   <ErrorMessageInput>
                     {formState?.errors?.cep?.message}
@@ -143,7 +152,8 @@ export function Checkout() {
                     type="text"
                     placeholder="Rua"
                     {...register('street')}
-                    hasError={!!formState?.errors?.street}
+                    mask=""
+                    $hasError={!!formState?.errors?.street}
                   />
                   <ErrorMessageInput>
                     {formState?.errors?.street?.message}
@@ -154,7 +164,9 @@ export function Checkout() {
                     type="text"
                     placeholder="Número"
                     {...register('number')}
-                    hasError={!!formState?.errors?.number}
+                    mask="******"
+                    maskPlaceholder=""
+                    $hasError={!!formState?.errors?.number}
                   />
                   <ErrorMessageInput>
                     {formState?.errors?.number?.message}
@@ -164,8 +176,9 @@ export function Checkout() {
                   <Input
                     type="text"
                     placeholder="Complemento"
-                    hasError={!!formState?.errors?.complement}
                     {...register('complement')}
+                    mask=""
+                    $hasError={!!formState?.errors?.complement}
                   />
                 </InputControl>
                 <InputControl>
@@ -173,7 +186,8 @@ export function Checkout() {
                     type="text"
                     placeholder="Bairro"
                     {...register('district')}
-                    hasError={!!formState?.errors?.district}
+                    mask=""
+                    $hasError={!!formState?.errors?.district}
                   />
                   <ErrorMessageInput>
                     {formState?.errors?.district?.message}
@@ -184,7 +198,8 @@ export function Checkout() {
                     type="text"
                     placeholder="Cidade"
                     {...register('city')}
-                    hasError={!!formState?.errors?.city}
+                    mask=""
+                    $hasError={!!formState?.errors?.city}
                   />
                   <ErrorMessageInput>
                     {formState?.errors?.city?.message}
@@ -195,7 +210,9 @@ export function Checkout() {
                     type="text"
                     placeholder="UF"
                     {...register('uf')}
-                    hasError={!!formState?.errors?.uf}
+                    mask="aa"
+                    maskPlaceholder=""
+                    $hasError={!!formState?.errors?.uf}
                   />
                   <ErrorMessageInput>
                     {formState?.errors?.uf?.message}
@@ -221,7 +238,7 @@ export function Checkout() {
                 />
                 <PaymentMethod
                   htmlFor="radio1"
-                  hasError={!!formState?.errors?.paymentMethod}
+                  $hasError={!!formState?.errors?.paymentMethod}
                 >
                   <CreditCard />
                   Cartão de Crédito
@@ -234,7 +251,7 @@ export function Checkout() {
                 />
                 <PaymentMethod
                   htmlFor="radio2"
-                  hasError={!!formState?.errors?.paymentMethod}
+                  $hasError={!!formState?.errors?.paymentMethod}
                 >
                   <Bank />
                   Cartão de Débito
@@ -247,7 +264,7 @@ export function Checkout() {
                 />
                 <PaymentMethod
                   htmlFor="radio3"
-                  hasError={!!formState?.errors?.paymentMethod}
+                  $hasError={!!formState?.errors?.paymentMethod}
                 >
                   <Money />
                   Dinheiro
