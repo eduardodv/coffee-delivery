@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import InputMask from 'react-input-mask'
 
 export const CheckoutContainer = styled.form`
   display: grid;
@@ -128,7 +129,7 @@ export const InputControl = styled.div`
   }
 `
 
-export const Input = styled.input<{ hasError: boolean }>`
+export const Input = styled(InputMask)<{ $hasError: boolean }>`
   width: 100%;
   border-radius: 4px;
   padding: 0.75rem;
@@ -137,9 +138,13 @@ export const Input = styled.input<{ hasError: boolean }>`
   background: ${(props) => props.theme.colors['base-input']};
   border: 1px solid
     ${(props) =>
-      !props.hasError
+      !props.$hasError
         ? props.theme.colors['base-button']
         : props.theme.colors['base-error']};
+
+  &[name="uf"] {
+    text-transform: uppercase;
+  }
 
   &:focus {
     border-color: ${(props) => props.theme.colors['yellow-500']};
@@ -147,10 +152,6 @@ export const Input = styled.input<{ hasError: boolean }>`
 
   ::placeholder {
     color: ${(props) => props.theme.colors['base-label']};
-  }
-
-  &.hasError {
-    opacity: 0.1;
   }
 `
 
@@ -177,7 +178,7 @@ export const PaymentMethodContainer = styled.div`
   }
 `
 
-export const PaymentMethod = styled.label<{ hasError: boolean }>`
+export const PaymentMethod = styled.label<{ $hasError: boolean }>`
   padding: 15px;
   border-radius: 6px;
   display: flex;
@@ -192,7 +193,7 @@ export const PaymentMethod = styled.label<{ hasError: boolean }>`
   transition: all 0.2s ease;
   border: 1px solid
     ${(props) =>
-      !props.hasError ? 'transparent' : props.theme.colors['base-error']};
+      !props.$hasError ? 'transparent' : props.theme.colors['base-error']};
 
   svg {
     font-size: 1rem;
