@@ -1,8 +1,9 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
+import axios from 'axios'
 
 import {
   Bank,
@@ -43,10 +44,28 @@ import { formatMoney } from '../../utils/formatMoeney'
 
 import { CartItemContext } from '../../contexts/CartItemContext'
 
+const APIViaCep = 'https://viacep.com.br/ws/'
+
+export function Checkout() {
+  const navigate = useNavigate()
+  const [validCep, setValidCep] = useState('')
+  
 const formCartValidationSchema = zod.object({
-  cep: zod.string().min(1, 'Informe o CEP.').length(9, 'CEP inváldio!'),
+  cep: zod.string().min(1, 'Informe o CEP.').superRefine((val ,ctx) => {
+    console.log(validCep);
+    
+    if(val.length !== 9 || validCep.hasOwnProperty('erro')) {
+      console.log('entrou');
+      
+      ctx.addIssue({
+        code: zod.ZodIssueCode.custom,
+        message: `CEP inváldio!`,
+      });
+    }
+    
+  }),
   street: zod.string().min(1, 'Informe a Rua.'),
-  number: zod.string().min(1, 'Informe o Número.'),
+  streetNumber: zod.string().min(1, 'Informe o Número.'),
   complement: zod.string().optional(),
   district: zod.string().min(1, 'Informe o Bairro.'),
   city: zod.string().min(1, 'Informe a Cidade.'),
@@ -67,15 +86,12 @@ const formCartValidationSchema = zod.object({
 // }
 type FormCartData = zod.infer<typeof formCartValidationSchema>
 
-export function Checkout() {
-  const navigate = useNavigate()
-
-  const { register, handleSubmit, formState, reset } = useForm<FormCartData>({
+  const { register, handleSubmit, formState, reset, setValue, setFocus } = useForm<FormCartData>({
     resolver: zodResolver(formCartValidationSchema),
     defaultValues: {
       cep: '',
       street: '',
-      number: '',
+      streetNumber: '',
       complement: '',
       district: '',
       city: '',
@@ -100,6 +116,29 @@ export function Checkout() {
     totalItensPrice >= 200 ? (totalDeliveryPrice = 0) : totalDeliveryPrice
 
   const totalPrice = totalItensPrice + totalDeliveryPrice
+
+  function handleCheckCep(e: React.FocusEvent<HTMLInputElement>) {
+    const cep = e.target.value.replace(/\D/g, '')
+
+    if(cep.length >= 8) {
+      axios
+      .get(`${APIViaCep}${cep}/json/`)
+      .then((response) => {
+        setValidCep(response.data)
+
+        if (!response.data.erro) {
+          setValue('street', response.data.logradouro)
+          setValue('district', response.data.bairro)
+          setValue('city', response.data.localidade)
+          setValue('uf', response.data.uf)
+          setFocus('streetNumber')
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }    
+  }  
 
   function handleSubmitFormCheckout(data: FormCartData) {
     const deliveryData = {
@@ -141,6 +180,7 @@ export function Checkout() {
                     {...register('cep')}
                     mask="99999-999"
                     maskPlaceholder=""
+                    onBlur={handleCheckCep}
                     $hasError={!!formState?.errors?.cep}
                   />
                   <ErrorMessageInput>
@@ -163,13 +203,13 @@ export function Checkout() {
                   <Input
                     type="text"
                     placeholder="Número"
-                    {...register('number')}
+                    {...register('streetNumber')}
                     mask="******"
                     maskPlaceholder=""
-                    $hasError={!!formState?.errors?.number}
+                    $hasError={!!formState?.errors?.streetNumber}
                   />
                   <ErrorMessageInput>
-                    {formState?.errors?.number?.message}
+                    {formState?.errors?.streetNumber?.message}
                   </ErrorMessageInput>
                 </InputControl>
                 <InputControl className="complement optional">

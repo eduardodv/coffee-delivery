@@ -49,7 +49,7 @@ export function DeliverySuccess() {
                 <p>
                   Entrega em{' '}
                   <strong>
-                    {state.data.street}, {state.data.number}
+                    {state.data.street}, {state.data.streetNumber}
                   </strong>
                 </p>
                 <p>
