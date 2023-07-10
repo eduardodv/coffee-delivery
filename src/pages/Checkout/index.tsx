@@ -52,11 +52,8 @@ export function Checkout() {
   
 const formCartValidationSchema = zod.object({
   cep: zod.string().min(1, 'Informe o CEP.').superRefine((val ,ctx) => {
-    console.log(validCep);
     
     if(val.length !== 9 || validCep.hasOwnProperty('erro')) {
-      console.log('entrou');
-      
       ctx.addIssue({
         code: zod.ZodIssueCode.custom,
         message: `CEP inváldio!`,
