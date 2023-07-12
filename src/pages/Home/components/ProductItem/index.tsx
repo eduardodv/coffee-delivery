@@ -1,6 +1,8 @@
+import toast from 'react-hot-toast'
 import { ShoppingCart } from 'phosphor-react'
 
 import { InputNumberCount } from '../../../../components/InputNumberCount'
+import { Toast } from '../../../../components/Toast'
 
 import {
   ButtonAddToCart,
@@ -52,6 +54,24 @@ export function ProductItem({
     }
     addToCart(itemToAdd)
     inputChangeQuantity(1)
+
+    const boldTitle = `${quantity}x ${title}`
+    toast.success(
+      (t) => (
+        <Toast
+          id={t.id}
+          boldTitle={boldTitle}
+          title="adicionado ao carrinho!"
+          isDismissible
+        />
+      ),
+      {
+        duration: 3000,
+        style: {
+          maxWidth: 500,
+        },
+      },
+    )
   }
 
   let [quantity, setCountQuantity] = useState<number>(1)

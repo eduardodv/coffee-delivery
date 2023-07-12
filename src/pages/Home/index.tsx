@@ -1,3 +1,5 @@
+import { Toaster } from 'react-hot-toast'
+
 import { Container } from '../../components/Container'
 import { Banner } from './components/Banner'
 import { ProductItem } from './components/ProductItem'
@@ -27,6 +29,7 @@ export function Home() {
             )
           })}
         </ListProducts>
+        <Toaster position="bottom-right" />
         {coffees.length <= 0 && <div>Nenhum produto cadastrado.</div>}
       </Container>
     </main>
