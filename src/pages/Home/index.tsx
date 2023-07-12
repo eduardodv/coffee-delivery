@@ -1,4 +1,4 @@
-import { Toaster } from 'react-hot-toast'
+import { Toaster, toast } from 'react-hot-toast'
 
 import { Container } from '../../components/Container'
 import { Banner } from './components/Banner'
@@ -7,8 +7,13 @@ import { ProductItem } from './components/ProductItem'
 import { ListProducts, TitleListProducts } from './styles'
 
 import { coffees } from '../../data/coffees.ts'
+import { useEffect } from 'react'
 
 export function Home() {
+  useEffect(() => {
+    toast.remove()
+  }, [])
+
   return (
     <main>
       <Banner />
