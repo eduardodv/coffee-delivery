@@ -142,7 +142,7 @@ export const Input = styled(InputMask)<{ $hasError: boolean }>`
         ? props.theme.colors['base-button']
         : props.theme.colors['base-error']};
 
-  &[name="uf"] {
+  &[name='uf'] {
     text-transform: uppercase;
   }
 

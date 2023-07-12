@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -49,53 +49,61 @@ const APIViaCep = 'https://viacep.com.br/ws/'
 export function Checkout() {
   const navigate = useNavigate()
   const [validCep, setValidCep] = useState('')
-  
-const formCartValidationSchema = zod.object({
-  cep: zod.string().min(1, 'Informe o CEP.').superRefine((val ,ctx) => {
-    
-    if(val.length !== 9 || validCep.hasOwnProperty('erro')) {
-      ctx.addIssue({
-        code: zod.ZodIssueCode.custom,
-        message: `CEP inváldio!`,
-      });
-    }
-    
-  }),
-  street: zod.string().min(1, 'Informe a Rua.'),
-  streetNumber: zod.string().min(1, 'Informe o Número.'),
-  complement: zod.string().optional(),
-  district: zod.string().min(1, 'Informe o Bairro.'),
-  city: zod.string().min(1, 'Informe a Cidade.'),
-  uf: zod.string().min(2, 'Informe o UF.'),
-  paymentMethod: zod.enum(['Cartão de Crédito', 'Cartão de Débito', 'Dinheiro'], {
-    errorMap: (issue) => {
-      if (issue.code == 'invalid_enum_value') {
-        return { message: 'Selecione um método de pagamento.' };
-      }
-      return { message: 'Selecione um método de pagamento.' };
-    },
-  })
-})
 
-// interface FormCartData {
-//   cep: string
-//   street: string
-// }
-type FormCartData = zod.infer<typeof formCartValidationSchema>
-
-  const { register, handleSubmit, formState, reset, setValue, setFocus } = useForm<FormCartData>({
-    resolver: zodResolver(formCartValidationSchema),
-    defaultValues: {
-      cep: '',
-      street: '',
-      streetNumber: '',
-      complement: '',
-      district: '',
-      city: '',
-      uf: '',
-      paymentMethod: undefined
-    },
+  const formCartValidationSchema = zod.object({
+    cep: zod
+      .string()
+      .min(1, 'Informe o CEP.')
+      .superRefine((val, ctx) => {
+        if (
+          val.length !== 9 ||
+          Object.prototype.hasOwnProperty.call(validCep, 'erro')
+        ) {
+          ctx.addIssue({
+            code: zod.ZodIssueCode.custom,
+            message: `CEP inváldio!`,
+          })
+        }
+      }),
+    street: zod.string().min(1, 'Informe a Rua.'),
+    streetNumber: zod.string().min(1, 'Informe o Número.'),
+    complement: zod.string().optional(),
+    district: zod.string().min(1, 'Informe o Bairro.'),
+    city: zod.string().min(1, 'Informe a Cidade.'),
+    uf: zod.string().min(2, 'Informe o UF.'),
+    paymentMethod: zod.enum(
+      ['Cartão de Crédito', 'Cartão de Débito', 'Dinheiro'],
+      {
+        errorMap: (issue) => {
+          if (issue.code === 'invalid_enum_value') {
+            return { message: 'Selecione um método de pagamento.' }
+          }
+          return { message: 'Selecione um método de pagamento.' }
+        },
+      },
+    ),
   })
+
+  // interface FormCartData {
+  //   cep: string
+  //   street: string
+  // }
+  type FormCartData = zod.infer<typeof formCartValidationSchema>
+
+  const { register, handleSubmit, formState, reset, setValue, setFocus } =
+    useForm<FormCartData>({
+      resolver: zodResolver(formCartValidationSchema),
+      defaultValues: {
+        cep: '',
+        street: '',
+        streetNumber: '',
+        complement: '',
+        district: '',
+        city: '',
+        uf: '',
+        paymentMethod: undefined,
+      },
+    })
 
   const { cartItems, resetCart } = useContext(CartItemContext)
 
@@ -117,25 +125,25 @@ type FormCartData = zod.infer<typeof formCartValidationSchema>
   function handleCheckCep(e: React.FocusEvent<HTMLInputElement>) {
     const cep = e.target.value.replace(/\D/g, '')
 
-    if(cep.length >= 8) {
+    if (cep.length >= 8) {
       axios
-      .get(`${APIViaCep}${cep}/json/`)
-      .then((response) => {
-        setValidCep(response.data)
+        .get(`${APIViaCep}${cep}/json/`)
+        .then((response) => {
+          setValidCep(response.data)
 
-        if (!response.data.erro) {
-          setValue('street', response.data.logradouro)
-          setValue('district', response.data.bairro)
-          setValue('city', response.data.localidade)
-          setValue('uf', response.data.uf)
-          setFocus('streetNumber')
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }    
-  }  
+          if (!response.data.erro) {
+            setValue('street', response.data.logradouro)
+            setValue('district', response.data.bairro)
+            setValue('city', response.data.localidade)
+            setValue('uf', response.data.uf)
+            setFocus('streetNumber')
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }
 
   function handleSubmitFormCheckout(data: FormCartData) {
     const deliveryData = {
