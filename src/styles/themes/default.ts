@@ -11,7 +11,10 @@ export const defaultTheme = {
     'base-button': '#E6E5E5',
     'base-input': '#EDEDED',
     'base-card': '#F3F2F2',
-    'base-error': '#FF0000',
+
+    'base-error-400': '#FEE5E5',
+    'base-error-500': '#FAA2A2',
+    'base-error-600': '#FF0000',
 
     'yellow-400': '#F1E9C9',
     'yellow-500': '#DBAC2C',

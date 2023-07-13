@@ -25,6 +25,6 @@ export const CloseButton = styled.button`
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: ${(props) => props.theme.colors['base-error']};
+    background-color: ${(props) => props.theme.colors['base-error-600']};
   }
 `

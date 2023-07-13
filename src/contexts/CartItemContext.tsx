@@ -47,8 +47,6 @@ export function CartItemContextProvider({
   }
 
   function removeToCart(id: number) {
-    if (!confirm('Tem certeza que deseja remover o item do carrinho?')) return
-
     const updateItemsWithoutRemovedItem = cartItems.filter(
       (item) => item.id !== id,
     )
