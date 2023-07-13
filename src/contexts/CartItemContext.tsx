@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 import { ProductItemProps } from '../pages/Home/components/ProductItem'
 
 interface CartItem extends ProductItemProps {
@@ -27,7 +27,16 @@ export const CartItemContext = createContext({} as CartItemContextType)
 export function CartItemContextProvider({
   children,
 }: CartItemContextProviderProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const storedStateAsJSON =
+    JSON.parse(localStorage.getItem('@coffee-delivery:cart-items-1.0.0')!) || []
+
+  const [cartItems, setCartItems] = useState<CartItem[]>(storedStateAsJSON)
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cartItems)
+
+    localStorage.setItem('@coffee-delivery:cart-items-1.0.0', stateJSON)
+  }, [cartItems])
 
   const totalItemsInCart = cartItems.length
 
