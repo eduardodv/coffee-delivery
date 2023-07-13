@@ -140,7 +140,7 @@ export const Input = styled(InputMask)<{ $hasError: boolean }>`
     ${(props) =>
       !props.$hasError
         ? props.theme.colors['base-button']
-        : props.theme.colors['base-error']};
+        : props.theme.colors['base-error-600']};
 
   &[name='uf'] {
     text-transform: uppercase;
@@ -156,7 +156,7 @@ export const Input = styled(InputMask)<{ $hasError: boolean }>`
 `
 
 export const ErrorMessageInput = styled.span`
-  color: ${(props) => props.theme.colors['base-error']};
+  color: ${(props) => props.theme.colors['base-error-600']};
   margin-bottom: -10px;
   display: inline-block;
   font-size: ${(props) => props.theme.sizes['text-xs']};
@@ -193,7 +193,7 @@ export const PaymentMethod = styled.label<{ $hasError: boolean }>`
   transition: all 0.2s ease;
   border: 1px solid
     ${(props) =>
-      !props.$hasError ? 'transparent' : props.theme.colors['base-error']};
+      !props.$hasError ? 'transparent' : props.theme.colors['base-error-600']};
 
   svg {
     font-size: 1rem;

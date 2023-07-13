@@ -1,6 +1,8 @@
 import { Trash } from 'phosphor-react'
+import * as AlertDialogRadix from '@radix-ui/react-alert-dialog'
 
 import { InputNumberCount } from '../../../components/InputNumberCount'
+import { AlertDialog } from '../../../components/AlertDialog'
 
 import { formatMoney } from '../../../utils/formatMoeney'
 
@@ -64,9 +66,18 @@ export function CartItem({
             inputChangeQuantity={handleInputChangeQuantity}
             quantity={quantity}
           />
-          <RemoveButton onClick={handleRemoveToCart}>
-            <Trash /> REMOVER
-          </RemoveButton>
+
+          <AlertDialogRadix.Root>
+            <AlertDialogRadix.Trigger asChild>
+              <RemoveButton>
+                <Trash /> REMOVER
+              </RemoveButton>
+            </AlertDialogRadix.Trigger>
+            <AlertDialog
+              title="Tem certeza que deseja remover o item do carrinho?"
+              actionButton={handleRemoveToCart}
+            />
+          </AlertDialogRadix.Root>
         </ButtonsContainer>
       </MiddleContent>
       <Price>R$ {formatMoney(price)}</Price>
