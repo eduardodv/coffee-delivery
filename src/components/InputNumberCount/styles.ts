@@ -4,7 +4,7 @@ export const InputNumberCountContainer = styled.div`
   height: 2.375rem;
   display: flex;
   border-radius: 0.375rem;
-  overflow: hidden;
+  // overflow: hidden;
   max-width: max-content;
   background-color: ${(props) => props.theme.colors['base-button']};
 `
@@ -17,6 +17,10 @@ const ButtonCountDefault = styled.button.attrs({
   cursor: pointer;
   color: ${(props) => props.theme.colors['purple-500']};
   transition: all 0.2s ease;
+
+  &:focus {
+    border-radius: inherit;
+  }
 
   &:hover {
     color: ${(props) => props.theme.colors['purple-600']};

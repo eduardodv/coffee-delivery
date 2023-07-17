@@ -32,6 +32,10 @@ export const Links = styled.div`
 
   a {
     text-decoration: none;
+
+    &:focus {
+      border-radius: 8px;
+    }
   }
 `
 
@@ -62,10 +66,6 @@ export const Location = styled(BaseLink)`
     margin-left: 0.25rem;
   }
 
-  /* &:hover {
-    background: ${(props) => props.theme.colors['purple-500']};
-  } */
-
   @media (max-width: 576px) {
     max-width: 8.125rem;
     font-size: ${(props) => props.theme.sizes.tag};
@@ -76,6 +76,7 @@ export const Cart = styled(BaseLink)`
   position: relative;
   color: ${(props) => props.theme.colors['yellow-600']};
   background: ${(props) => props.theme.colors['yellow-400']};
+
   &:hover {
     color: ${(props) => props.theme.colors.white};
     background: ${(props) => props.theme.colors['yellow-500']};

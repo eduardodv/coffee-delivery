@@ -30,6 +30,10 @@ export const LinkLabel = styled.p`
     margin-left: 0.3125rem;
     color: ${(props) => props.theme.colors['purple-500']};
 
+    &:focus {
+      border-radius: 4px;
+    }
+
     &:hover {
       color: ${(props) => props.theme.colors['purple-600']};
     }

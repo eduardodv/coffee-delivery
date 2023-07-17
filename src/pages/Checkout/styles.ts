@@ -147,6 +147,7 @@ export const Input = styled(InputMask)<{ $hasError: boolean }>`
   }
 
   &:focus {
+    box-shadow: none;
     border-color: ${(props) => props.theme.colors['yellow-500']};
   }
 
@@ -214,6 +215,10 @@ export const PaymentMethodRadioButton = styled.input`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+
+  &:focus-visible + ${PaymentMethod} {
+    box-shadow: 0 0 0 2px #32a1ce;
+  }
 
   &:checked + ${PaymentMethod} {
     border-color: ${(props) => props.theme.colors['purple-500']};
