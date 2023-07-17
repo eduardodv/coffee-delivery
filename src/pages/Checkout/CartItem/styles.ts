@@ -54,7 +54,7 @@ export const ButtonsContainer = styled.div`
   }
 `
 
-export const RemoveButton = styled.div`
+export const RemoveButton = styled.button`
   display: flex;
   align-items: center;
   border-radius: 6px;
@@ -62,6 +62,7 @@ export const RemoveButton = styled.div`
   gap: 0 0.25rem;
   cursor: pointer;
   line-height: 1.2;
+  border: none;
   color: ${(props) => props.theme.colors['base-text']};
   background: ${(props) => props.theme.colors['base-button']};
   font-size: ${(props) => props.theme.sizes['button-m']};
